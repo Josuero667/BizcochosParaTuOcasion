@@ -42,4 +42,3 @@ if (stage) {
   document.querySelectorAll('.filter').forEach(button=>button.addEventListener('click',()=>{category=button.dataset.category;document.querySelectorAll('.filter').forEach(b=>{b.classList.toggle('active',b===button);b.setAttribute('aria-pressed',String(b===button));});render();}));
   let size=innerWidth<600?0:innerWidth<1000?1:2;addEventListener('resize',()=>{const next=innerWidth<600?0:innerWidth<1000?1:2;if(next!==size){size=next;render();}});render();
 }
-

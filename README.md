@@ -8,13 +8,15 @@ Run `node preview.mjs`, then open http://localhost:4173. No package installation
 
 `build.mjs` contains the shared header, footer, metadata and page content. After editing it, run `node build.mjs` to regenerate `index.html` and `galeria.html`. The generated HTML files must be committed; GitHub Pages does not need to run Node. Appearance is in `styles.css`; gallery behavior and sample photos are in `site.js`.
 
-The gallery contains 50 numbered placeholder slots using eight repeated Unsplash photographs, plus duplicate tracks for continuous scrolling. These are explicitly labeled as references, not the bakery's work. Replace the samples and homepage photos with actual business photos before promoting the website. Fonts load from Google Fonts; sample photos load from Unsplash.
+The gallery contains 50 numbered placeholder slots using repeated Unsplash photographs, plus duplicate tracks for continuous scrolling. These are explicitly labeled as references, not the bakery's work. Replace the samples and homepage photos with actual business photos before promoting the website. Fonts load from Google Fonts; sample photos load from Unsplash. The business phone number is 939-244-1650; WhatsApp links include Puerto Rico's +1 country code. Social logos are inline SVGs, with visible text labels.
 
 ## GitHub Pages: current diagnosis and publishing
 
-Checked September 22, 2026: the public `main/index.html` exists and contains `Hello World!`. HTTPS to the custom domain succeeds but returns GitHub's HTTP 404. The public Actions endpoint returns zero workflow runs. This suggests the publishing configuration needs attention, but authenticated Pages settings have not been verified. The local Git checkout is older than the remote; reconcile remote changes before committing or pushing. Do not force-push.
+On September 22, 2026, authenticated inspection confirmed that Pages was configured for a custom Actions workflow (`build_type: workflow`), but the repository had no deployment workflow. The domain reached GitHub over HTTPS but returned HTTP 404. We synchronized the remote rename of `Home.html` to `index.html`, pushed the website, and changed Pages to branch publishing (`build_type: legacy`) from `main` at `/`. The existing custom domain and enforced HTTPS were retained.
 
-1. Commit and push the finished website files, including both HTML pages, CSS, JS, favicon, `CNAME`, `.nojekyll`, `robots.txt`, and `sitemap.xml`.
+For future updates:
+
+1. Run `node build.mjs` after content edits. Commit and push the finished website files, including both HTML pages, CSS, JS, favicon, `CNAME`, `.nojekyll`, `robots.txt`, and `sitemap.xml`.
 2. Open https://github.com/Josuero667/BizcochosParaTuOcasion/settings/pages.
 3. Under Build and deployment, choose **Deploy from a branch**, **main**, and **/(root)**, then Save.
 4. Confirm the custom domain is `bizcochosparatuocasion.com` and Enforce HTTPS is enabled. Preserve the existing CNAME file.
