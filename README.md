@@ -10,7 +10,9 @@ Run `node preview.mjs`, then open http://localhost:4173. No package installation
 
 ## Photos
 
-All photos are the business's own cakes. Web-sized copies live in `fotos/<category>/` (up to 1200 px, shown when a photo is enlarged) and `fotos/<category>/mini/` (600 px gallery thumbnails); the homepage uses cropped versions in `fotos/inicio/`. Categories: `infantiles`, `bodas-y-quinces`, `adultos`, `festividades`. To add a photo, export both sizes with metadata stripped (for example `convert in.jpg -auto-orient -strip -resize '1200x1200>' -quality 80 fotos/infantiles/name.jpg`, and the same at `600x600>` into `mini/`), then add `['infantiles','name','Caption']` to the `photos` list in `site.js`. Fonts load from Google Fonts. The business phone number is 939-244-1650; WhatsApp links include Puerto Rico's +1 country code. Social logos are inline SVGs, with visible text labels.
+All photos are the business's own cakes. Web-sized copies live in `fotos/<category>/` (up to 1200 px, shown when a photo is enlarged) and `fotos/<category>/mini/` (600 px gallery thumbnails); the homepage uses cropped versions in `fotos/inicio/` (the main photo crossfades through the `heroSlides` list in `build.mjs`). Categories: `infantiles`, `bodas-y-quinces`, `adultos`, `festividades`. To add a photo, export both sizes with metadata stripped (for example `convert in.jpg -auto-orient -strip -resize '1200x1200>' -quality 80 fotos/infantiles/name.jpg`, and the same at `600x600>` into `mini/`), then add `['infantiles','name','Caption']` to the `photos` list in `site.js`. Fonts load from Google Fonts.
+
+Gallery rows drift on their own, and visitors can also swipe, drag with the mouse, or use the arrow buttons to scroll them. The business phone number is 939-244-1650; WhatsApp links include Puerto Rico's +1 country code. Social logos are inline SVGs, with visible text labels.
 
 ## GitHub Pages: current diagnosis and publishing
 
