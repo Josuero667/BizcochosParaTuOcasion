@@ -123,16 +123,18 @@ if (stage) {
       for(let copy=0;copy<copies;copy++) for(const item of items){const button=document.createElement('button');button.type='button';button.className='gallery-item';button.setAttribute('aria-label',`Ampliar foto ${item.id}: ${item.title}`);if(copy){button.tabIndex=-1;button.setAttribute('aria-hidden','true');}const img=document.createElement('img');img.src=url(item);img.alt=`Bizcocho: ${item.title}`;img.loading='lazy';img.width=229;img.height=229;const caption=document.createElement('span');caption.textContent=item.title;const number=document.createElement('b');number.textContent=String(item.id).padStart(2,'0');caption.append(number);button.append(img,caption);button.addEventListener('click',()=>showPhoto(item,button));track.append(button);}
       viewport.append(track);
       const arrows=[['prev','‹','Ver fotos anteriores',-1],['next','›','Ver más fotos',1]].map(([name,symbol,label,dir])=>{const b=document.createElement('button');b.type='button';b.className=`row-arrow ${name}`;b.textContent=symbol;b.setAttribute('aria-label',label);b.addEventListener('click',()=>viewport.scrollBy({left:dir*viewport.clientWidth*0.8,behavior:'smooth'}));return b;});
-      wrap.append(arrows[0],viewport,arrows[1]);stage.append(wrap);setupRow(wrap,viewport,track,row%2?-1:1,row%2?115:100);
+      wrap.append(arrows[0],viewport,arrows[1]);stage.append(wrap);setupRow(wrap,viewport,track,row%2?-1:1);
     }
   }
   // Each row drifts on its own but stays a normal scroll area: swipe, trackpad, drag with the mouse or use the arrows.
   // The track holds two copies of the photos, so jumping back by one copy's width loops without a visible seam.
   let rows=[];
-  function setupRow(wrap,viewport,track,dir,seconds){
+  // Every row drifts at the same gentle speed (pixels per second), however many photos it holds.
+  const driftSpeed=28;
+  function setupRow(wrap,viewport,track,dir){
     const row={viewport,pos:0,hold:false,resume:0};rows.push(row);
     const loop=()=>(track.scrollWidth+parseFloat(getComputedStyle(track).columnGap||0))/2;
-    row.speed=()=>dir*loop()/seconds;row.wrap=()=>{const l=loop();if(l>0){if(row.pos>=l)row.pos-=l;if(row.pos<0)row.pos+=l;}};
+    row.speed=()=>dir*driftSpeed;row.wrap=()=>{const l=loop();if(l>0){if(row.pos>=l)row.pos-=l;if(row.pos<0)row.pos+=l;}};
     const hold=()=>{row.hold=true;clearTimeout(row.resume);};const release=(delay=1500)=>{clearTimeout(row.resume);row.resume=setTimeout(()=>{row.hold=false;},delay);};
     wrap.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')hold();});wrap.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')release(300);});
     viewport.addEventListener('touchstart',hold,{passive:true});viewport.addEventListener('touchend',()=>release());wrap.addEventListener('focusin',hold);wrap.addEventListener('focusout',()=>release(300));
